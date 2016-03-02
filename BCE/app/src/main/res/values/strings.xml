@@ -1,0 +1,32 @@
+<resources>
+
+    <string name="app_name">BCE</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="tv_first_name">First Name:</string>
+    <string name="tv_last_name">Last Name:</string>
+    <string name="tv_phone">Phone:</string>
+    <string name="tv_email">Email:</string>
+    <string name="tv_address">Address:</string>
+    <string name="tv_company">Company:</string>
+    <string name="tv_title">Title:</string>
+    <string name="tv_note">Note:</string>
+    <string name="tv_website">Website:</string>
+
+    <string name="add_card_manually_title">Add Card Manually</string>
+    <string name="template_list_view_title">All Templates</string>
+    <string name="card_holder_title">Card Holder</string>
+    <string name="view_card_title">Card Information</string>
+
+    <string-array name="sort_list">
+
+        <item>Name</item>
+        <item>Date</item>
+        <item>Title</item>
+        <item>Phone</item>
+        <item>Email</item>
+        <item>Note</item>
+    </string-array>
+
+</resources>
