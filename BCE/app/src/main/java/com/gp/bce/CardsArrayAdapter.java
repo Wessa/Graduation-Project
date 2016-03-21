@@ -26,14 +26,18 @@ public class CardsArrayAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         String imageName = objects.get(position);
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Activity.
                         LAYOUT_INFLATER_SERVICE);
+
         View view = layoutInflater.inflate(R.layout.template_item, null);
+
         ImageView image = (ImageView) view.findViewById(R.id.templateImage);
         int res = context.getResources().getIdentifier(imageName, "drawable",
                 context.getPackageName());
+
         image.setImageResource(res);
         return view;
     }
