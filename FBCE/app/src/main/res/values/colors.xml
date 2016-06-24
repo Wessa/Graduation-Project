@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="lightPrimaryColor">#727272</color>
+
+    <color name="profileBack">#FF4081</color>
+    <color name="friendsBack">#64DD17</color>
+    <color name="scanBack">#64DD17</color>
+
+    <color name="exchangeBack">#FF4081</color>
+    <color name="globeBack">#FFEB3B</color>
+</resources>
