@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textColor="#212121"
                 android:textSize="24sp" />
 
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Friends"
+                android:text="@string/friends"
                 android:textColor="#212121"
                 android:textSize="24sp" />
 
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Scan Card"
+                android:text="@string/scan_card"
                 android:textColor="#212121"
                 android:textSize="24sp" />
 
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Exchange"
+                android:text="@string/exchange"
                 android:textColor="#212121"
                 android:textSize="24sp" />
 
@@ -153,12 +153,12 @@
         android:onClick="globalSearch">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Search the Globe"
+            android:text="@string/search_the_globe"
             android:textColor="#212121"
             android:textSize="24sp" />
 

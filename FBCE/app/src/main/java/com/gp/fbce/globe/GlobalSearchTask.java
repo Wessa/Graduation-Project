@@ -54,7 +54,7 @@ public class GlobalSearchTask extends AsyncTask<String, Void, List<BusinessCard>
 
             final String KEY = "key";
 
-            final String BASE_URL = "http://192.168.0.4:8080//bce_api/get_all_cards.php?";
+            final String BASE_URL = "http://192.168.1.41:8080//bce_api/get_all_cards.php?";
 
             // Construct the URL for the MOVIE API query
             Uri builtUri = Uri.parse(BASE_URL).buildUpon()

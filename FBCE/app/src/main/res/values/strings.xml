@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">FBCE</string>
+    <string name="app_name">Business Card Smart Case</string>
     <string name="title_activity_add_note">AddNoteActivity</string>
+    <string name="profile">Profile</string>
+    <string name="friends">Friends</string>
+    <string name="scan_card">Scan Card</string>
+    <string name="exchange">Exchange</string>
+    <string name="search_the_globe">Search the Globe</string>
+    <string name="title">Title</string>
+    <string name="name">Name</string>
 </resources>

@@ -26,7 +26,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public static final String CARD_TITLE = "title";
     public static final String CARD_NOTE = "note";
     public static final String CARD_WEBSITE = "website";
-    public static final String CARD_CREATED = "cardCreated";;
+    public static final String CARD_CREATED = "cardCreated";
 
     public static final String[] ALL_COLUMNS = {
             CARD_ID, CARD_GLOBAL_ID, CARD_NAME, CARD_PHONE, CARD_EMAIL, CARD_ADDRESS,

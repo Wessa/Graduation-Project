@@ -99,6 +99,7 @@ public class ScanActivity extends AppCompatActivity {
             EditText edit_email = (EditText) findViewById(R.id.input_email);
             EditText edit_address = (EditText) findViewById(R.id.input_address);
             EditText edit_website = (EditText) findViewById(R.id.input_website);
+            EditText edit_company = (EditText) findViewById(R.id.input_company);
 
             name.setText(card.getName());
             title.setText(card.getTitle());
@@ -109,6 +110,7 @@ public class ScanActivity extends AppCompatActivity {
             edit_email.setText(card.getEmail());
             edit_address.setText(card.getAddress());
             edit_website.setText(card.getWebsite());
+            edit_company.setText(card.getCompany());
 
             edit_name.addTextChangedListener(new TextWatcher() {
                 @Override

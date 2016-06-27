@@ -13,4 +13,7 @@
 
     <color name="exchangeBack">#FF4081</color>
     <color name="globeBack">#FFEB3B</color>
+
+    <color name="scan_start">#FFEB3B</color>
+    <color name="add_start">#FFC107</color>
 </resources>

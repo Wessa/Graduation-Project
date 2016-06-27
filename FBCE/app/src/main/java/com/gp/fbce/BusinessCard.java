@@ -125,7 +125,28 @@ public class BusinessCard implements Serializable {
         final String NAME = "name";
         final String ADDRESS = "address";
         final String PHONE = "phone";
-        final String ID = "id";
+        //final String ID = "id";
+
+        if ( this.website == null )
+            this.website = " ";
+
+        else if ( this.address == null )
+            this.address = " ";
+
+        else if ( this.company == null )
+            this.company = " ";
+
+        else if ( this.phone == null )
+            this.phone = " ";
+
+        else if ( this.name == null )
+            this.name = " ";
+
+        else if ( this.title == null )
+            this.title = " ";
+
+        else if ( this.email == null )
+            this.email = " ";
 
         card.put(WEBSITE, this.website);
         card.put(COMPANY, this.company);
@@ -134,7 +155,7 @@ public class BusinessCard implements Serializable {
         card.put(NAME, this.name);
         card.put(ADDRESS, this.address);
         card.put(PHONE, this.phone);
-        card.put(ID, this.id);
+        //card.put(ID, this.id);
 
         return card;
     }

@@ -9,15 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gp.fbce.BusinessCard;
+import com.gp.fbce.R;
+import com.gp.fbce.globe.InsertTask;
 import com.gp.fbce.local.CardsProvider;
 import com.gp.fbce.local.DBOpenHelper;
-import com.gp.fbce.R;
+
+import java.util.concurrent.ExecutionException;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -73,12 +79,10 @@ public class ProfileActivity extends AppCompatActivity {
             edit_address.setText(card.getAddress());
             edit_website.setText(card.getWebsite());
             edit_company.setText(card.getCompany());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
             Log.e("error of single Card", e.getMessage());
-        }
-        finally {
+        } finally {
 
             data.close();
         }
@@ -148,7 +152,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        if ( id == android.R.id.home ){
+        if (id == android.R.id.home) {
 
             onBackPressed();
             return true;
@@ -157,9 +161,39 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void update( BusinessCard card ){
+    public void update(BusinessCard card) {
+
+        String result = "default";
+
+        CheckBox add_to_puplic = (CheckBox) findViewById(R.id.add_to_public);
+
+        if (add_to_puplic.isChecked() && card.getGlobal_id() == null ) {
+
+            InsertTask insertTask = new InsertTask();
+
+            try {
+
+                result = insertTask.execute(card).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
 
         ContentValues cardInfo = new ContentValues();
+
+        if (!(result.charAt(0) == 'e')) {
+
+            cardInfo.put(DBOpenHelper.CARD_GLOBAL_ID, result);
+        }
+        else{
+
+            Toast toast = Toast.makeText(ProfileActivity.this, result, Toast.LENGTH_SHORT);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+        }
 
         cardInfo.put(DBOpenHelper.CARD_NAME, card.getName());
         cardInfo.put(DBOpenHelper.CARD_TITLE, card.getTitle());

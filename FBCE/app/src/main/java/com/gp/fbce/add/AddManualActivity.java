@@ -188,7 +188,7 @@ public class AddManualActivity extends AppCompatActivity {
         cardInfo.put(DBOpenHelper.CARD_NOTE, card.getNote());
 
         Uri uri = getContentResolver().insert(CardsProvider.CONTENT_URI, cardInfo);
-        Log.d("MainActivityDebug", "inserted card id = " + uri.getLastPathSegment());
+        //Log.d("MainActivityDebug", "inserted card id = " + uri.getLastPathSegment());
     }
 
     @Override

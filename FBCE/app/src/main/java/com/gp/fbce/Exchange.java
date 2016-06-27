@@ -19,26 +19,31 @@ import com.gp.fbce.local.DBOpenHelper;
 
 public class Exchange extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback {
 
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange);
 
+        Cursor data = getContentResolver().query(CardsProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS,
+                "_id = ?", new String[]{"1"}, null);
+
+        Log.d("count", data.getCount()+"");
+
+        data.moveToFirst();
+
+        name = data.getString(data.getColumnIndex(DBOpenHelper.CARD_NAME));
+        Log.d("name", name.toString());
+
         NfcAdapter mAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mAdapter == null) {
-
-            Toast.makeText(this, "Sorry this device does not have NFC.", Toast.LENGTH_LONG).show();
+            Log.d("res","Sorry this device does not have NFC.");
             return;
         }
 
         if (!mAdapter.isEnabled()) {
-            // NFC is disabled, show the settings UI to enable NFC
-            startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
             Toast.makeText(this, "Please enable NFC via Settings.", Toast.LENGTH_LONG).show();
-        }
-        else if (!mAdapter.isNdefPushEnabled()) {
-            // Android Beam is disabled, show the settings UI to enable Android Beam
-            startActivity(new Intent(Settings.ACTION_NFCSHARING_SETTINGS));
         }
 
         mAdapter.setNdefPushMessageCallback(this, this);
@@ -46,11 +51,7 @@ public class Exchange extends AppCompatActivity implements NfcAdapter.CreateNdef
 
     @Override
     public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
-
-        Cursor data = getContentResolver().query(CardsProvider.CONTENT_URI, DBOpenHelper.ALL_COLUMNS,
-                "_id = ?", new String[]{"1"}, null);
-
-        String message = data.getString(data.getColumnIndex(DBOpenHelper.CARD_NAME));
+        String message = name;
         NdefRecord ndefRecord = NdefRecord.createMime("text/plain", message.getBytes());
         NdefMessage ndefMessage = new NdefMessage(ndefRecord);
         return ndefMessage;
@@ -66,9 +67,7 @@ public class Exchange extends AppCompatActivity implements NfcAdapter.CreateNdef
 
             NdefMessage message = (NdefMessage) rawMessages[0]; // only one message transferred
 
-            Toast.makeText(this, new String(message.getRecords()[0].getPayload()), Toast.LENGTH_LONG).show();
-            TextView res = (TextView) findViewById(R.id.message);
-            res.setText(new String(message.getRecords()[0].getPayload()));
+            Log.d("res", new String(message.getRecords()[0].getPayload()));
 
         } //else
         //mTextView.setText("Waiting for NDEF Message");

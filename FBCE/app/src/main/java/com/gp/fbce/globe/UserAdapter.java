@@ -26,20 +26,20 @@ public class UserAdapter extends ArrayAdapter<BusinessCard> {
     Context context;
     LayoutInflater inflater;
 
-    public UserAdapter(Context context, ArrayList<BusinessCard> reviews) {
+    public UserAdapter(Context context, ArrayList<BusinessCard> cards) {
 
-        super(context, 0, reviews);
+        super(context, 0, cards);
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.cards = reviews;
+        this.cards = cards;
     }
 
-    public void add(List<BusinessCard> reviews){
+    public void add(List<BusinessCard> cards){
 
         this.cards.clear();
 
-        this.cards.addAll(reviews);
+        this.cards.addAll(cards);
         notifyDataSetChanged();
     }
 
@@ -58,13 +58,13 @@ public class UserAdapter extends ArrayAdapter<BusinessCard> {
 
         View rootView = inflater.inflate(R.layout.user_list_item, parent, false);
 
-        String global_ID = cards.get(position).getGlobal_id();
-        Log.d("id_global", global_ID);
-        int count = context.getContentResolver().query(CardsProvider.CONTENT_URI,
-                new String[]{DBOpenHelper.CARD_GLOBAL_ID},
-                "global_id = ?", new String[]{global_ID}, null).getCount();
-
-        Log.d("count", count + "");
+//        String global_ID = cards.get(position).getGlobal_id();
+//        Log.d("id_global", global_ID);
+//        int count = context.getContentResolver().query(CardsProvider.CONTENT_URI,
+//                new String[]{DBOpenHelper.CARD_GLOBAL_ID},
+//                "global_id = ?", new String[]{global_ID}, null).getCount();
+//
+//        Log.d("count", count + "");
 
         TextView title = (TextView) rootView.findViewById(R.id.title);
         TextView name = (TextView) rootView.findViewById(R.id.name);

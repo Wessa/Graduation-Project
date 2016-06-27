@@ -29,7 +29,7 @@ public class GlobalSearchActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar app_bar = getSupportActionBar();
         app_bar.setDisplayHomeAsUpEnabled(true);
 
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        //AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
 
         ListView global_search = (ListView) findViewById(R.id.global_search);
         adapter = new UserAdapter(this, new ArrayList<BusinessCard>());

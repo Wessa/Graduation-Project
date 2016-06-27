@@ -33,7 +33,7 @@ public class AddNoteActivity extends AppCompatActivity {
                 "_id = ?", new String[]{user_id}, null);
 
         try {
-
+            //move to start of the result set
             data.moveToFirst();
 
             edit_note = (EditText) findViewById(R.id.input_note);
