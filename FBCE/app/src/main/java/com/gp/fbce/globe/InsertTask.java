@@ -47,7 +47,7 @@ public class InsertTask extends AsyncTask<BusinessCard, Void, String> {
             final String PHONE = "phone";
             final String ID = "id";
 
-            final String BASE_URL = "http://192.168.1.41:8080/bce_api/add_card.php?";
+            final String BASE_URL = "http://10.1.11.32:8080/bce_api/add_card.php?";
 
             Log.d("sent card", businessCards[0].getName() + " " + businessCards[0].getEmail());
 

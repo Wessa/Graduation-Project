@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.gp.fbce.BusinessCard;
 import com.gp.fbce.R;
 import com.gp.fbce.globe.InsertTask;
+import com.gp.fbce.globe.UpdateTask;
 import com.gp.fbce.local.CardsProvider;
 import com.gp.fbce.local.DBOpenHelper;
 
@@ -61,6 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             Log.d("Name", data.getString(data.getColumnIndex(DBOpenHelper.CARD_NAME)));
 
+            card.setGlobal_id(data.getString(data.getColumnIndex(DBOpenHelper.CARD_GLOBAL_ID)));
             card.setName(data.getString(data.getColumnIndex(DBOpenHelper.CARD_NAME)));
             card.setTitle(data.getString(data.getColumnIndex(DBOpenHelper.CARD_TITLE)));
             card.setPhone(data.getString(data.getColumnIndex(DBOpenHelper.CARD_PHONE)));
@@ -128,6 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 card.setName(String.valueOf(edit_name.getText()));
                 card.setTitle(String.valueOf(edit_title.getText()));
                 card.setPhone(String.valueOf(edit_phone.getText()));
@@ -167,7 +170,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         CheckBox add_to_puplic = (CheckBox) findViewById(R.id.add_to_public);
 
-        if (add_to_puplic.isChecked() && card.getGlobal_id() == null ) {
+        if ( add_to_puplic.isChecked() ) {
 
             InsertTask insertTask = new InsertTask();
 
@@ -183,11 +186,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         ContentValues cardInfo = new ContentValues();
 
-        if (!(result.charAt(0) == 'e')) {
+        if (!(result.charAt(0) == 'e') && !(result.equals("default")) ){
 
             cardInfo.put(DBOpenHelper.CARD_GLOBAL_ID, result);
+            card.setGlobal_id(result);
         }
-        else{
+        else if ( result.charAt(0) == 'e' ) {
 
             Toast toast = Toast.makeText(ProfileActivity.this, result, Toast.LENGTH_SHORT);
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
@@ -203,6 +207,8 @@ public class ProfileActivity extends AppCompatActivity {
         cardInfo.put(DBOpenHelper.CARD_PHONE, card.getPhone());
         cardInfo.put(DBOpenHelper.CARD_WEBSITE, card.getWebsite());
         cardInfo.put(DBOpenHelper.CARD_NOTE, card.getNote());
+
+        new UpdateTask().execute(card);
 
         getContentResolver().update(CardsProvider.CONTENT_URI, cardInfo, "_id = ?", new String[]{"1"});
         //Log.d("MainActivityDebug", "inserted card id = " + uri.getLastPathSegment());

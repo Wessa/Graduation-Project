@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.gp.fbce.local.CardsProvider;
 import com.gp.fbce.local.DBOpenHelper;
@@ -54,6 +55,8 @@ public class AddNoteActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 updateNote(edit_note.getText().toString(), user_id);
+                Toast.makeText(AddNoteActivity.this, "Note saved", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

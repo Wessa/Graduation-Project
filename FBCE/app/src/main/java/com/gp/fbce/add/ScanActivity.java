@@ -14,11 +14,13 @@ import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gp.fbce.BusinessCard;
+import com.gp.fbce.globe.InsertTask;
 import com.gp.fbce.local.CardsProvider;
 import com.gp.fbce.local.DBOpenHelper;
 import com.gp.fbce.MainActivity;
@@ -30,6 +32,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class ScanActivity extends AppCompatActivity {
 
@@ -192,6 +195,30 @@ public class ScanActivity extends AppCompatActivity {
 
             Toast.makeText(ScanActivity.this, "Card already exists", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        String result = "default";
+
+        CheckBox add_to_public = (CheckBox) findViewById(R.id.add_to_public);
+
+        if ( add_to_public.isChecked() ){
+
+            InsertTask insertTask = new InsertTask();
+
+            try {
+
+                result = insertTask.execute(card).get();
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if ( !result.equals("default") && !(result.charAt(0) == 'e') ) {
+
+            card.setGlobal_id(result);
         }
 
         ContentValues cardInfo = new ContentValues();

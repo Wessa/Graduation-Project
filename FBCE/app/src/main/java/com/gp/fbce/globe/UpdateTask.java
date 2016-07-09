@@ -2,11 +2,12 @@ package com.gp.fbce.globe;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.gp.fbce.BusinessCard;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,31 +17,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by Waseem on 6/20/2016.
- */
-public class GlobalSearchTask extends AsyncTask<String, Void, List<BusinessCard>> {
-
-    private GlobalSearchActivity activity;
-
-    public GlobalSearchTask( GlobalSearchActivity activity ) {
-
-        this.activity = activity;
-    }
+public class UpdateTask extends AsyncTask<BusinessCard, Void, Void> {
 
     @Override
-    protected void onPostExecute(List<BusinessCard> businessCards){
-
-        activity.adapter.add(businessCards);
-    }
-
-    @Override
-    protected List<BusinessCard> doInBackground(String... strings) {
-
-        List <BusinessCard> cards = null;
+    protected Void doInBackground(BusinessCard... businessCards) {
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
@@ -52,13 +33,29 @@ public class GlobalSearchTask extends AsyncTask<String, Void, List<BusinessCard>
 
         try {
 
-            final String KEY = "key";
+            final String WEBSITE = "website";
+            final String COMPANY = "company";
+            final String EMAIL = "email";
+            final String TITLE = "title";
+            final String NAME = "name";
+            final String ADDRESS = "address";
+            final String PHONE = "phone";
+            final String ID = "id";
 
-            final String BASE_URL = "http://10.1.11.32:8080//bce_api/get_all_cards.php?";
+            final String BASE_URL = "http://10.1.11.32:8080/bce_api/update_card.php?";
+
+            Log.d("sent card", businessCards[0].getName() + " " + businessCards[0].getEmail());
 
             // Construct the URL for the MOVIE API query
             Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                    .appendQueryParameter(KEY, strings[0])
+                    .appendQueryParameter(ID, businessCards[0].getGlobal_id())
+                    .appendQueryParameter(NAME, businessCards[0].getName())
+                    .appendQueryParameter(PHONE, businessCards[0].getPhone())
+                    .appendQueryParameter(EMAIL, businessCards[0].getEmail())
+                    .appendQueryParameter(ADDRESS, businessCards[0].getAddress())
+                    .appendQueryParameter(WEBSITE, businessCards[0].getWebsite())
+                    .appendQueryParameter(COMPANY, businessCards[0].getCompany())
+                    .appendQueryParameter(TITLE, businessCards[0].getTitle())
                     .build();
 
             URL url = new URL(builtUri.toString());
@@ -98,18 +95,11 @@ public class GlobalSearchTask extends AsyncTask<String, Void, List<BusinessCard>
 
             Log.d("Insertion JSON", "JSON = " + json);
 
-            cards = getJsonResult(json);
-
         } catch (IOException e) {
             Log.e("PlaceholderFragment", "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attemping
             // to parse it.
             return null;
-        }
-
-        catch (JSONException e) {
-
-            e.printStackTrace();
         }
 
         finally {
@@ -129,44 +119,6 @@ public class GlobalSearchTask extends AsyncTask<String, Void, List<BusinessCard>
             }
         }
 
-        return cards;
-    }
-
-    public List<BusinessCard> getJsonResult( String json ) throws JSONException {
-
-        List<BusinessCard> result = new ArrayList<>();
-
-        final String WEBSITE = "website";
-        final String COMPANY = "company";
-        final String EMAIL = "email";
-        final String TITLE = "title";
-        final String NAME = "name";
-        final String ADDRESS = "address";
-        final String PHONE = "phone";
-        final String ID = "id";
-
-        JSONObject response = new JSONObject(json);
-
-        JSONArray array = response.getJSONArray("cards");
-
-        for ( int i=0; i<array.length(); i++ ){
-
-            JSONObject cardJson = array.getJSONObject(i);
-
-            BusinessCard card = new BusinessCard();
-
-            card.setGlobal_id(cardJson.getString(ID));
-            card.setName(cardJson.getString(NAME));
-            card.setWebsite(cardJson.getString(WEBSITE));
-            card.setAddress(cardJson.getString(ADDRESS));
-            card.setEmail(cardJson.getString(EMAIL));
-            card.setPhone(cardJson.getString(PHONE));
-            card.setCompany(cardJson.getString(COMPANY));
-            card.setTitle(cardJson.getString(TITLE));
-
-            result.add(card);
-        }
-
-        return result;
+        return null;
     }
 }
